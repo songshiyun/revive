@@ -35,13 +35,14 @@ func g(f func() bool) {
 
 	}
 
-	// issue 386, then overwritten by issue 416
+	// issue 386
 	var c = make(chan int)
-	for range c { // MATCH /this block is empty, you can remove it/
+	for range c { // DO NOT FAIL
 	}
 
+	// But without types it skips this (too artificial?) one
 	var s = "a string"
-	for range s { // MATCH /this block is empty, you can remove it/
+	for range s { // DO NOT FAIL
 	}
 
 }
