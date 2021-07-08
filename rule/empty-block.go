@@ -41,15 +41,23 @@ func (w lintEmptyBlock) Visit(node ast.Node) ast.Visitor {
 		w.ignore[n.Body] = true
 		return w
 	case *ast.RangeStmt:
-		if len(n.Body.List) == 0 {
-			w.onFailure(lint.Failure{
-				Confidence: 0.9,
-				Node:       n,
-				Category:   "logic",
-				Failure:    "this block is empty, you can remove it",
-			})
-			return nil // skip visiting the range subtree (it will produce a duplicated failure)
+		if len(n.Body.List) > 0 {
+			return w // not empty body, continue visiting it
 		}
+
+		confidence := 0.9
+		if n.Key == nil && n.Value == nil {
+			confidence = 0.5 // lowered confidence because it seems to be a channel draining loop
+		}
+
+		w.onFailure(lint.Failure{
+			Confidence: confidence,
+			Node:       n,
+			Category:   "logic",
+			Failure:    "this block is empty, you can remove it",
+		})
+
+		return nil // skip visiting the range subtree (it will produce a duplicated failure)
 	case *ast.BlockStmt:
 		if !w.ignore[n] && len(n.List) == 0 {
 			w.onFailure(lint.Failure{

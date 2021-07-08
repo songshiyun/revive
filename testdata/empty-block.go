@@ -35,7 +35,7 @@ func g(f func() bool) {
 
 	}
 
-	// issue 386, then overwritten by issue 416
+	// issue 386
 	var c = make(chan int)
 	for range c { // MATCH /this block is empty, you can remove it/
 	}
