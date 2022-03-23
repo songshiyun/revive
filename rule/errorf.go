@@ -6,7 +6,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/mgechev/revive/lint"
+	"github.com/songshiyun/revive/lint"
 )
 
 // ErrorfRule lints given else constructs.

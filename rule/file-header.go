@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"regexp"
 
-	"github.com/mgechev/revive/lint"
+	"github.com/songshiyun/revive/lint"
 )
 
 // FileHeaderRule lints given else constructs.

@@ -4,7 +4,7 @@ import (
 	"go/ast"
 	"go/types"
 
-	"github.com/mgechev/revive/lint"
+	"github.com/songshiyun/revive/lint"
 )
 
 // StringOfIntRule warns when logic expressions contains Boolean literals.

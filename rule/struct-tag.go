@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"github.com/fatih/structtag"
-	"github.com/mgechev/revive/lint"
+	"github.com/songshiyun/revive/lint"
 )
 
 // StructTagRule lints struct tags.

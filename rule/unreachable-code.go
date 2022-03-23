@@ -3,7 +3,7 @@ package rule
 import (
 	"go/ast"
 
-	"github.com/mgechev/revive/lint"
+	"github.com/songshiyun/revive/lint"
 )
 
 // UnreachableCodeRule lints unreachable code.

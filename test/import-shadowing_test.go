@@ -3,7 +3,7 @@ package test
 import (
 	"testing"
 
-	"github.com/mgechev/revive/rule"
+	"github.com/songshiyun/revive/rule"
 )
 
 func TestImportShadowing(t *testing.T) {

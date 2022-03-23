@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	"github.com/chavacava/garif"
-	"github.com/mgechev/revive/lint"
+	"github.com/songshiyun/revive/lint"
 )
 
 // Sarif is an implementation of the Formatter interface

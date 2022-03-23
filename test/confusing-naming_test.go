@@ -3,7 +3,7 @@ package test
 import (
 	"testing"
 
-	"github.com/mgechev/revive/rule"
+	"github.com/songshiyun/revive/rule"
 )
 
 // TestConfusingNaming rule.

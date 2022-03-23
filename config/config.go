@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"io/ioutil"
 
-	"github.com/mgechev/revive/formatter"
+	"github.com/songshiyun/revive/formatter"
 
 	"github.com/BurntSushi/toml"
-	"github.com/mgechev/revive/lint"
-	"github.com/mgechev/revive/rule"
+	"github.com/songshiyun/revive/lint"
+	"github.com/songshiyun/revive/rule"
 )
 
 var defaultRules = []lint.Rule{
@@ -183,6 +183,17 @@ func normalizeConfig(config *lint.Config) {
 }
 
 const defaultConfidence = 0.8
+
+func LoadDefaultConfig(data []byte) (*lint.Config, error) {
+	config := &lint.Config{}
+	config.Confidence = defaultConfidence
+	_, err := toml.Decode(string(data), config)
+	if err != nil {
+		return nil, fmt.Errorf("cannot parse the config file: %v", err)
+	}
+	normalizeConfig(config)
+	return config, err
+}
 
 // GetConfig yields the configuration
 func GetConfig(configPath string) (*lint.Config, error) {

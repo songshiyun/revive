@@ -3,8 +3,8 @@ package test
 import (
 	"testing"
 
-	"github.com/mgechev/revive/lint"
-	"github.com/mgechev/revive/rule"
+	"github.com/songshiyun/revive/lint"
+	"github.com/songshiyun/revive/rule"
 )
 
 // Test banned characters in a const, var and func names.

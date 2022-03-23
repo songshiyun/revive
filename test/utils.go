@@ -15,8 +15,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/mgechev/revive/lint"
 	"github.com/pkg/errors"
+	"github.com/songshiyun/revive/lint"
 )
 
 func testRule(t *testing.T, filename string, rule lint.Rule, config ...*lint.RuleConfig) {

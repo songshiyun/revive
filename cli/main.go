@@ -11,10 +11,10 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/mgechev/dots"
-	"github.com/mgechev/revive/config"
-	"github.com/mgechev/revive/lint"
-	"github.com/mgechev/revive/logging"
 	"github.com/mitchellh/go-homedir"
+	"github.com/songshiyun/revive/config"
+	"github.com/songshiyun/revive/lint"
+	"github.com/songshiyun/revive/logging"
 )
 
 var (
@@ -55,7 +55,7 @@ func RunRevive(extraRules ...ExtraRule) {
 		fail(err.Error())
 	}
 
-	conf, err := config.GetConfig(configPath)
+	conf, err := mergeConf()
 	if err != nil {
 		fail(err.Error())
 	}
@@ -153,9 +153,13 @@ func normalizeSplit(strs []string) []string {
 func getPackages(excludePaths arrayFlags) ([][]string, error) {
 	globs := normalizeSplit(flag.Args())
 	if len(globs) == 0 {
-		globs = append(globs, ".")
+		//globs = append(globs, ".")
 	}
-
+	changeFiles, err := GetChangedFiles(rootPath)
+	if err != nil {
+		return nil, err
+	}
+	globs = append(globs, changeFiles...)
 	packages, err := dots.ResolvePackages(globs, normalizeSplit(excludePaths))
 	if err != nil {
 		return nil, err
@@ -183,6 +187,7 @@ var (
 	versionFlag   bool
 	setExitStatus bool
 	maxOpenFiles  int
+	rootPath      string
 )
 
 var originalUsage = flag.Usage
@@ -238,6 +243,7 @@ func init() {
 		versionUsage      = "get revive version"
 		exitStatusUsage   = "set exit status to 1 if any issues are found, overwrites errorCode and warningCode in config"
 		maxOpenFilesUsage = "maximum number of open files at the same time"
+		rootPathUsage     = "the root path for the git directory"
 	)
 
 	defaultConfigPath := buildDefaultConfigPath()
@@ -248,6 +254,7 @@ func init() {
 	flag.BoolVar(&versionFlag, "version", false, versionUsage)
 	flag.BoolVar(&setExitStatus, "set_exit_status", false, exitStatusUsage)
 	flag.IntVar(&maxOpenFiles, "max_open_files", 0, maxOpenFilesUsage)
+	flag.StringVar(&rootPath, "root", "./", rootPathUsage)
 	flag.Parse()
 
 	// Output build info (version, commit, date and builtBy)

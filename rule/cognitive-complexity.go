@@ -5,7 +5,7 @@ import (
 	"go/ast"
 	"go/token"
 
-	"github.com/mgechev/revive/lint"
+	"github.com/songshiyun/revive/lint"
 	"golang.org/x/tools/go/ast/astutil"
 )
 
